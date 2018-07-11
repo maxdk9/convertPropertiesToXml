@@ -33,9 +33,42 @@ public class ReadWriteXlsProperties {
     public static void main(String[] args) {
 
         //writePropertiesFileToXLS();
-        readMyExcel();
+        readMyExcelAndSaveToPropertiesFile();
     }
 
+
+    private static void readMyExcelAndSaveToPropertiesFile() {
+        ReadWriteXlsProperties readWriteXlsDemo = new ReadWriteXlsProperties();
+        readWriteXlsDemo.readExcel("E:\\1\\result.xls");
+        readWriteXlsDemo.writePropertiesToPropertiesFile("E:\\1\\stringresources_ru.properties");
+
+
+    }
+
+
+
+    private  void writePropertiesToPropertiesFile(String pathToPropertiesFile) {
+        Properties properties = new Properties();
+        for (String key : propMap.keySet()) {
+            properties.put(key, propMap.get(key));
+        }
+
+
+        FileOutputStream fr = null;
+        try {
+            fr = new FileOutputStream(pathToPropertiesFile);
+            properties.store(fr, "Properties");
+            fr.close();
+            System.out.println("After saving properties: " + properties);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
     private static void readMyExcel() {
         ReadWriteXlsProperties readWriteXlsDemo = new ReadWriteXlsProperties();
